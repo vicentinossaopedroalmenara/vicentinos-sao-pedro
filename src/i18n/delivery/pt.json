@@ -1,0 +1,13 @@
+{
+  "pendingTitle": "Visitas Pendentes",
+  "pendingSubtitle": "Acompanhamento das famílias que ainda não receberam visitas no mês atual.",
+  "monthSelector": "Mês de Referência:",
+  "btnQuickRegister": "Registrar Visita",
+  "modalTitle": "Registrar Visita",
+  "modalSubtitle": "Registre os dados da visita e os itens doados.",
+  "fieldDate": "Data da Visita (Padrão: Hoje)",
+  "fieldDescription": "Observações / Itens Doados",
+  "fieldVolunteer": "Voluntário Responsável",
+  "successRegister": "Visita registrada com sucesso!",
+  "emptyPending": "Maravilha! Todas as famílias ativas já foram visitadas neste mês."
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "delivery_history" ADD COLUMN "baskets_quantity" integer DEFAULT 1 NOT NULL;

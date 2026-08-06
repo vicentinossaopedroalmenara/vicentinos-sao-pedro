@@ -1,0 +1,17 @@
+{
+  "appName": "Vicentinos São Pedro",
+  "tagline": "Controle de Visitas e Cestas",
+  "navDashboard": "Início",
+  "navBeneficiaries": "Famílias",
+  "navPending": "Visitas Pendentes",
+  "login": "Entrar (Voluntário)",
+  "logout": "Sair",
+  "save": "Salvar",
+  "cancel": "Cancelar",
+  "loading": "Carregando...",
+  "search": "Buscar...",
+  "edit": "Editar",
+  "delete": "Excluir",
+  "confirm": "Confirmar",
+  "back": "Voltar"
+}

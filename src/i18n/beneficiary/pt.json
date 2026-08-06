@@ -1,0 +1,23 @@
+{
+  "listTitle": "Famílias",
+  "listSubtitle": "Cadastro de famílias assistidas pela Conferência São Pedro.",
+  "btnNew": "Cadastrar Família",
+  "searchPlaceholder": "Pesquisar por nome, CPF ou Bairro...",
+  "empty": "Nenhuma família encontrada.",
+  "colName": "Nome do Responsável",
+  "colAddress": "Endereço",
+  "colStatus": "Situação",
+  "colActions": "Ações",
+  "formTitleNew": "Nova Família",
+  "formTitleEdit": "Atualizar Família",
+  "formPersonal": "Informações Básicas",
+  "formAddress": "Endereço",
+  "formStatus": "Situação",
+  "formNotes": "Observações / Perfil da Família",
+  "statusActive": "Ativo",
+  "statusInactive": "Inativo",
+  "profileTitle": "Perfil da Família",
+  "historyTitle": "Histórico de Visitas e Cestas",
+  "noHistory": "Nenhum registro de visita foi feito para esta família até o momento.",
+  "registerFirst": "Registrar Primeira Visita"
+}

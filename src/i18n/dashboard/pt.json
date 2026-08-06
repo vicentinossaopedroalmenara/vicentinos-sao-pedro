@@ -1,0 +1,15 @@
+{
+  "title": "Acompanhamento Vicentino",
+  "subtitle": "Visão geral das visitas mensais, cestas doadas e acompanhamento da situação das famílias.",
+  "statTotalActive": "Famílias Atendidas",
+  "statDeliveredThisMonth": "Visitas Realizadas no Mês",
+  "statPendingThisMonth": "Visitas Pendentes",
+  "alertPendingTitle": "Atenção às Visitas Pendentes do Mês",
+  "alertPendingText": "Ainda restam famílias sem o registro da visita para o mês de",
+  "btnSeePending": "Ver Visitas Pendentes",
+  "alertInactiveTitle": "Alerta: Falta de Visita",
+  "alertInactiveText": "Identificamos famílias que estão há 2 ou mais meses consecutivos sem o registro de visitas da conferência.",
+  "btnSeeInactive": "Ver Famílias em Alerta",
+  "monthlyGoalTitle": "Meta de Visitas Mensal",
+  "noInactive": "Excelente! Todas as famílias contam com visitas registradas nos últimos 2 meses."
+}

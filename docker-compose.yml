@@ -1,0 +1,28 @@
+services:
+  vicentinos-sao-pedro:
+    build:
+      context: .
+      dockerfile: .docker/build/Dockerfile
+      target: ${WEB_TARGET:-deps}
+    container_name: vicentinos-sao-pedro-local
+    command: ${SERVICE_COMMAND:-npm run dev}
+    env_file: .env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    networks:
+      - default
+      - guideline
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - ${BIND_PORT:-3002}:3002
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+networks:
+  guideline:
+    external: true
+    name: guideline
