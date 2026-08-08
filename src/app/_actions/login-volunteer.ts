@@ -48,8 +48,14 @@ export async function loginVolunteer(
   } catch (error: any) {
     console.error("[loginVolunteer] Erro inesperado:", error);
     
-    if (error?.status === 401 || error?.status === 403 || error?.message?.includes("Invalid password")) {
-      return { error: "Senha incorreta. Tente novamente.", unauthorized: true };
+    if (
+      error?.statusCode === 401 ||
+      error?.status === "UNAUTHORIZED" ||
+      error?.status === 403 ||
+      error?.message?.includes("Invalid email or password") ||
+      error?.body?.message?.includes("Invalid email or password")
+    ) {
+      return { error: "Credenciais incorretas ou usuário não encontrado. Tente novamente.", unauthorized: true };
     }
     
     return { error: "Erro interno. Tente novamente em alguns instantes." };
