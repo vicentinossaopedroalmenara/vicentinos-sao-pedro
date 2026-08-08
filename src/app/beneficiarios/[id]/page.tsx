@@ -56,35 +56,39 @@ export default function BeneficiaryProfilePage({ params }: { params: Promise<{ i
           </span>
         </div>
 
-        <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto mt-4 sm:mt-0">
           <Button
             onClick={() => setModalOpen(true)}
             size="lg"
-            className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:opacity-90 text-white font-black shadow-md rounded-2xl gap-2"
+            className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-500 hover:opacity-90 text-white font-black shadow-md rounded-2xl gap-2"
           >
             <Gift className="h-5 w-5 stroke-[2.5]" />
             <span>Registrar Visita</span>
           </Button>
-          <Button
-            onClick={() => router.push(`/beneficiarios/cadastro?id=${beneficiary.id}`)}
-            variant="secondary"
-            size="icon"
-            className="h-11 w-11 rounded-2xl"
-            title="Editar Dossiê"
-          >
-            <Edit3 className="h-5 w-5 text-amber-500" />
-          </Button>
-          <ExportMenu
-            data={{
-              beneficiaries: [beneficiary],
-              deliveries: deliveries.map((d: any) => ({
-                ...d,
-                deliveredAt: d.deliveredAt instanceof Date ? d.deliveredAt.toISOString() : d.deliveredAt,
-              })),
-              title: `Dossiê — ${beneficiary.fullName}`,
-            } as ExportData}
-            label="Exportar"
-          />
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <Button
+              onClick={() => router.push(`/beneficiarios/cadastro?id=${beneficiary.id}`)}
+              variant="secondary"
+              className="h-11 flex-1 sm:flex-none sm:w-11 rounded-2xl"
+              title="Editar Dossiê"
+            >
+              <Edit3 className="h-5 w-5 text-amber-500 sm:mx-0 mx-auto" />
+              <span className="sm:hidden font-bold ml-1.5 text-slate-700">Editar</span>
+            </Button>
+            <div className="flex-1 sm:flex-none flex [&>div]:w-full [&_button]:w-full [&_button]:h-11 [&_button]:justify-center">
+              <ExportMenu
+                data={{
+                  beneficiaries: [beneficiary],
+                  deliveries: deliveries.map((d: any) => ({
+                    ...d,
+                    deliveredAt: d.deliveredAt instanceof Date ? d.deliveredAt.toISOString() : d.deliveredAt,
+                  })),
+                  title: `Dossiê — ${beneficiary.fullName}`,
+                } as ExportData}
+                label="Exportar"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
