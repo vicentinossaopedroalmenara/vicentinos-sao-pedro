@@ -10,6 +10,7 @@ import { getBeneficiaryById } from "../../_actions/get-beneficiary-by-id";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { useSearchParams } from "next/navigation";
+import { maskCPF } from "@/domain/beneficiary/masks";
 
 export function useBeneficiaryForm() {
   const t = useTranslations("Beneficiary");
@@ -30,6 +31,7 @@ export function useBeneficiaryForm() {
     formState: { errors },
   } = useForm<BeneficiaryInput>({
     resolver: zodResolver(beneficiarySchema) as any,
+    mode: "onChange",
     defaultValues: {
       fullName: "",
       document: "",
@@ -56,9 +58,9 @@ export function useBeneficiaryForm() {
         if (res.success && res.beneficiary) {
           reset({
             fullName: res.beneficiary.fullName,
-            document: res.beneficiary.document,
+            document: res.beneficiary.document ? maskCPF(res.beneficiary.document) : "",
             phone: res.beneficiary.phone || "",
-            birthDate: res.beneficiary.birthDate || "",
+            birthDate: res.beneficiary.birthDate ? res.beneficiary.birthDate.split('-').reverse().join('/') : "",
             street: res.beneficiary.street,
             number: res.beneficiary.number,
             neighborhood: res.beneficiary.neighborhood,

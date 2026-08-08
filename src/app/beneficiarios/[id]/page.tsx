@@ -9,6 +9,8 @@ import { DeliveryHistoryTimeline } from "./_components/DeliveryHistoryTimeline";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Gift, Edit3 } from "lucide-react";
+import { ExportMenu } from "@/components/ExportMenu";
+import type { ExportData } from "@/domain/export";
 
 export default function BeneficiaryProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const {
@@ -72,6 +74,17 @@ export default function BeneficiaryProfilePage({ params }: { params: Promise<{ i
           >
             <Edit3 className="h-5 w-5 text-amber-500" />
           </Button>
+          <ExportMenu
+            data={{
+              beneficiaries: [beneficiary],
+              deliveries: deliveries.map((d: any) => ({
+                ...d,
+                deliveredAt: d.deliveredAt instanceof Date ? d.deliveredAt.toISOString() : d.deliveredAt,
+              })),
+              title: `Dossiê — ${beneficiary.fullName}`,
+            } as ExportData}
+            label="Exportar"
+          />
         </div>
       </div>
 

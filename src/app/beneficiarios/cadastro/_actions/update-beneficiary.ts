@@ -21,16 +21,18 @@ export async function updateBeneficiary(id: number, formData: unknown) {
     }
 
     const data = parsed.data;
-    const cleanDoc = cleanDocument(data.document);
+    const cleanDoc = data.document && data.document.trim() !== "" ? cleanDocument(data.document) : null;
 
-    const existing = await db
-      .select()
-      .from(beneficiaries)
-      .where(and(eq(beneficiaries.document, cleanDoc), ne(beneficiaries.id, id)))
-      .limit(1);
+    if (cleanDoc) {
+      const existing = await db
+        .select()
+        .from(beneficiaries)
+        .where(and(eq(beneficiaries.document, cleanDoc), ne(beneficiaries.id, id)))
+        .limit(1);
 
-    if (existing.length > 0) {
-      return { error: "Este CPF já pertence a outra família assistida em nosso cadastro." };
+      if (existing.length > 0) {
+        return { error: "Este CPF já pertence a outra família assistida em nosso cadastro." };
+      }
     }
 
     const now = new Date();
@@ -41,7 +43,7 @@ export async function updateBeneficiary(id: number, formData: unknown) {
         fullName: data.fullName,
         document: cleanDoc,
         phone: data.phone || null,
-        birthDate: data.birthDate || null,
+        birthDate: data.birthDate ? data.birthDate.split('/').reverse().join('-') : null,
         street: data.street,
         number: data.number,
         neighborhood: data.neighborhood,

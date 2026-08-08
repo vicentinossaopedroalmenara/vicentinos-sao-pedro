@@ -5,7 +5,7 @@ import { deliveryHistory } from './delivery_history';
 export const beneficiaries = pgTable('beneficiaries', {
   id: serial('id').primaryKey(),
   fullName: varchar('full_name', { length: 255 }).notNull(),
-  document: varchar('document', { length: 25 }).notNull().unique(), // CPF / RG
+  document: varchar('document', { length: 25 }).unique(), // CPF / RG
   phone: varchar('phone', { length: 50 }),
   birthDate: varchar('birth_date', { length: 20 }), // Ex: YYYY-MM-DD
   street: varchar('street', { length: 255 }).notNull(),

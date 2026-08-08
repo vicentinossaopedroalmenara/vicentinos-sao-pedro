@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { UserPlus, Save, ArrowLeft, MapPin, FileText, CheckCircle2, ShieldAlert } from "lucide-react";
+import { maskCPF, maskPhone, maskCEP, maskDate } from "@/domain/beneficiary/masks";
 
 function BeneficiaryFormContent() {
   const {
@@ -49,7 +50,7 @@ function BeneficiaryFormContent() {
           </h1>
           <Badge variant="info">{editId ? `ID: #${editId}` : "Novo Cadastro"}</Badge>
         </div>
-          Preencha o endereço e o CPF para o controle único das visitas.
+          Preencha o endereço para o controle das visitas. O CPF é opcional.
       </div>
 
       {successMessage ? (
@@ -87,11 +88,15 @@ function BeneficiaryFormContent() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700">CPF / Documento *</label>
+                <label className="text-xs font-bold text-slate-700">CPF / Documento</label>
                 <Input
                   type="text"
-                  placeholder="Apenas números (11 dígitos)"
+                  placeholder="000.000.000-00 (11 dígitos)"
                   {...register("document")}
+                  onChange={(e) => {
+                    e.target.value = maskCPF(e.target.value);
+                    register("document").onChange(e);
+                  }}
                   variant={errors.document ? "error" : "mono"}
                 />
                 {errors.document && <span className="text-[11px] text-red-500 font-semibold">{errors.document.message}</span>}
@@ -103,16 +108,26 @@ function BeneficiaryFormContent() {
                   type="text"
                   placeholder="(11) 99999-9999"
                   {...register("phone")}
+                  onChange={(e) => {
+                    e.target.value = maskPhone(e.target.value);
+                    register("phone").onChange(e);
+                  }}
                 />
               </div>
 
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-slate-700">Data de Nascimento (Opcional)</label>
                 <Input
-                  type="date"
+                  type="text"
+                  placeholder="DD/MM/AAAA"
                   {...register("birthDate")}
+                  onChange={(e) => {
+                    e.target.value = maskDate(e.target.value);
+                    register("birthDate").onChange(e);
+                  }}
                   className="w-full font-mono text-xs sm:text-sm"
                 />
+                {errors.birthDate && <span className="text-[11px] text-red-500 font-semibold">{errors.birthDate.message}</span>}
               </div>
 
               <div className="space-y-1.5">
@@ -148,6 +163,10 @@ function BeneficiaryFormContent() {
                   type="text"
                   placeholder="00000-000"
                   {...register("zipCode")}
+                  onChange={(e) => {
+                    e.target.value = maskCEP(e.target.value);
+                    register("zipCode").onChange(e);
+                  }}
                   variant={errors.zipCode ? "error" : "mono"}
                 />
                 {errors.zipCode && <span className="text-[11px] text-red-500 font-semibold">{errors.zipCode.message}</span>}
@@ -158,6 +177,7 @@ function BeneficiaryFormContent() {
                 <Input
                   type="text"
                   placeholder="Ex: Rua das Flores"
+                  maxLength={255}
                   {...register("street")}
                   variant={errors.street ? "error" : "default"}
                 />
@@ -169,6 +189,7 @@ function BeneficiaryFormContent() {
                 <Input
                   type="text"
                   placeholder="Ex: 124-B ou S/N"
+                  maxLength={50}
                   {...register("number")}
                   variant={errors.number ? "error" : "default"}
                 />
@@ -180,6 +201,7 @@ function BeneficiaryFormContent() {
                 <Input
                   type="text"
                   placeholder="Ex: Vila São Pedro"
+                  maxLength={100}
                   {...register("neighborhood")}
                   variant={errors.neighborhood ? "error" : "default"}
                 />
@@ -191,6 +213,7 @@ function BeneficiaryFormContent() {
                 <Input
                   type="text"
                   placeholder="Opcional"
+                  maxLength={255}
                   {...register("complement")}
                 />
               </div>
@@ -199,6 +222,7 @@ function BeneficiaryFormContent() {
                 <label className="text-xs font-bold text-slate-700">Cidade *</label>
                 <Input
                   type="text"
+                  maxLength={100}
                   {...register("city")}
                 />
               </div>
@@ -218,6 +242,7 @@ function BeneficiaryFormContent() {
                 <Input
                   type="text"
                   placeholder="Ex: Em frente à mercearia do Seu Joaquim, portão azul."
+                  maxLength={255}
                   {...register("referencePoint")}
                 />
               </div>

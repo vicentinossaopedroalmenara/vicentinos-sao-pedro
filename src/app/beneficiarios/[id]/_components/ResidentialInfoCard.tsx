@@ -2,7 +2,8 @@
 
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { MapPin, Phone, ShieldCheck } from "lucide-react";
+import { MapPin, Phone, ShieldCheck, Copy, MessageCircle } from "lucide-react";
+import { PhoneContact } from "@/components/PhoneContact";
 
 interface ResidentialInfoCardProps {
   beneficiary: any;
@@ -38,10 +39,7 @@ export function ResidentialInfoCard({ beneficiary }: ResidentialInfoCardProps) {
         </h3>
         <div className="text-xs text-slate-600 space-y-2">
           {beneficiary.phone && (
-            <div className="flex items-center gap-2 text-emerald-600 font-mono text-sm">
-              <Phone className="h-4 w-4 shrink-0" />
-              <span>{beneficiary.phone}</span>
-            </div>
+            <PhoneContact phone={beneficiary.phone} />
           )}
           {beneficiary.birthDate && (
             <p className="text-slate-500">Nascido(a) em: <strong className="text-slate-900 font-mono">{beneficiary.birthDate.split("-").reverse().join("/")}</strong></p>

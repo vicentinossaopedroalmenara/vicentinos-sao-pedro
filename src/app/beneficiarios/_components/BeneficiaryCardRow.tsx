@@ -5,7 +5,8 @@ import { Link } from "@/i18n/routing";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Edit3, Trash2, MapPin } from "lucide-react";
+import { Eye, Edit3, Trash2, MapPin, Copy, MessageCircle } from "lucide-react";
+import { PhoneContact } from "@/components/PhoneContact";
 
 interface BeneficiaryCardRowProps {
   item: any;
@@ -40,7 +41,9 @@ export function BeneficiaryCardRow({
               <MapPin className="h-4 w-4 text-blue-500 shrink-0" />
               {item.street}, {item.number} - {item.neighborhood}
             </span>
-            {item.phone && <span className="text-emerald-600 font-mono font-medium">📱 {item.phone}</span>}
+            {item.phone && (
+              <PhoneContact phone={item.phone} icon={false} className="font-medium" />
+            )}
           </div>
         </div>
       </div>

@@ -7,9 +7,12 @@ import { BeneficiaryCardRow } from "./_components/BeneficiaryCardRow";
 import { BeneficiariesFilterBar } from "./_components/BeneficiariesFilterBar";
 import { BeneficiariesPagination } from "./_components/BeneficiariesPagination";
 import { Button } from "@/components/ui/button";
-import { Users, Plus, ArrowLeft } from "lucide-react";
+import { Users, Plus, Download } from "lucide-react";
+import { ExportConfigModal } from "./_components/ExportConfigModal";
 
 export default function BeneficiariesListPage() {
+  const [isExportModalOpen, setIsExportModalOpen] = React.useState(false);
+
   const {
     t,
     router,
@@ -40,12 +43,24 @@ export default function BeneficiariesListPage() {
           </p>
         </div>
 
-        <Button asChild variant="default" size="lg" className="shrink-0 bg-sky-500 hover:bg-sky-400 text-white font-black shadow-xl rounded-2xl">
-          <Link href="/beneficiarios/cadastro" className="flex items-center gap-2">
-            <Plus className="h-5 w-5 stroke-[3]" />
-            <span>{t("btnNew")}</span>
-          </Link>
-        </Button>
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+          <Button 
+            variant="secondary" 
+            size="lg"
+            onClick={() => setIsExportModalOpen(true)}
+            className="shrink-0 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 font-bold shadow-sm rounded-2xl flex items-center justify-center gap-2 h-11 sm:h-auto"
+          >
+            <Download className="h-4 w-4 text-slate-500" />
+            <span>Exportar Relatório</span>
+          </Button>
+
+          <Button asChild variant="default" size="lg" className="shrink-0 bg-sky-500 hover:bg-sky-400 text-white font-black shadow-xl rounded-2xl h-11 sm:h-auto flex items-center justify-center">
+            <Link href="/beneficiarios/cadastro" className="flex items-center gap-2 w-full justify-center">
+              <Plus className="h-5 w-5 stroke-[3]" />
+              <span>{t("btnNew")}</span>
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Componente Modular da Barra de Pesquisa */}
@@ -92,6 +107,10 @@ export default function BeneficiariesListPage() {
         loading={loading}
         onPageChange={handlePageChange}
       />
+
+      {isExportModalOpen && (
+        <ExportConfigModal onClose={() => setIsExportModalOpen(false)} />
+      )}
     </div>
   );
 }

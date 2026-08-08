@@ -1,0 +1,1 @@
+ALTER TABLE "beneficiaries" ALTER COLUMN "document" DROP NOT NULL;

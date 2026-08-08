@@ -21,16 +21,18 @@ export async function createBeneficiary(formData: unknown) {
     }
 
     const data = parsed.data;
-    const cleanDoc = cleanDocument(data.document);
+    const cleanDoc = data.document && data.document.trim() !== "" ? cleanDocument(data.document) : null;
 
-    const existing = await db
-      .select()
-      .from(beneficiaries)
-      .where(eq(beneficiaries.document, cleanDoc))
-      .limit(1);
+    if (cleanDoc) {
+      const existing = await db
+        .select()
+        .from(beneficiaries)
+        .where(eq(beneficiaries.document, cleanDoc))
+        .limit(1);
 
-    if (existing.length > 0) {
-      return { error: "Já existe uma família assistida cadastrada com este Documento (CPF)." };
+      if (existing.length > 0) {
+        return { error: "Já existe uma família assistida cadastrada com este Documento (CPF)." };
+      }
     }
 
     const now = new Date();
@@ -41,7 +43,7 @@ export async function createBeneficiary(formData: unknown) {
         fullName: data.fullName,
         document: cleanDoc,
         phone: data.phone || null,
-        birthDate: data.birthDate || null,
+        birthDate: data.birthDate ? data.birthDate.split('/').reverse().join('-') : null,
         street: data.street,
         number: data.number,
         neighborhood: data.neighborhood,
