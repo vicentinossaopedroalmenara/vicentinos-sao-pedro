@@ -8,6 +8,7 @@ const trustedOrigins = [
   process.env.BETTER_AUTH_URL,
   process.env.NEXT_PUBLIC_APP_URL,
   process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+  "https://vicentinos-sao-pedro-chi.vercel.app",
 ].filter((url): url is string => Boolean(url));
 
 export const auth = betterAuth({
