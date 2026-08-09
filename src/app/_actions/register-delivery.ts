@@ -7,7 +7,7 @@ import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { checkVolunteerAuth } from "@/auth/guard";
 
-export async function registerDelivery(formData: DeliveryInput) {
+export async function registerDelivery(formData: DeliveryInput, overrideWarning: boolean = false) {
   const { authenticated } = await checkVolunteerAuth();
   if (!authenticated) {
     return { success: false, error: "Acesso Negado: Apenas voluntários com sessão ativa podem registrar visitas.", unauthorized: true };
@@ -22,19 +22,21 @@ export async function registerDelivery(formData: DeliveryInput) {
 
     const { beneficiaryId, referenceMonth, deliveredAt, description, deliveredBy, basketsQuantity } = parsed.data;
 
-    const existing = await db
-      .select()
-      .from(deliveryHistory)
-      .where(
-        and(
-          eq(deliveryHistory.beneficiaryId, beneficiaryId),
-          eq(deliveryHistory.referenceMonth, referenceMonth)
+    if (!overrideWarning) {
+      const existing = await db
+        .select()
+        .from(deliveryHistory)
+        .where(
+          and(
+            eq(deliveryHistory.beneficiaryId, beneficiaryId),
+            eq(deliveryHistory.referenceMonth, referenceMonth)
+          )
         )
-      )
-      .limit(1);
+        .limit(1);
 
-    if (existing.length > 0) {
-      return { error: `Esta família já possui registro de visita para o mês ${referenceMonth}.` };
+      if (existing.length > 0) {
+        return { warning: `Esta família já possui visita(s) registrada(s) para o mês ${referenceMonth}.` };
+      }
     }
 
     const [created] = await db

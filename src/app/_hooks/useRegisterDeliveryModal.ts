@@ -29,6 +29,7 @@ export function useRegisterDeliveryModal({
   const [description, setDescription] = useState("");
   const [deliveredBy, setDeliveredBy] = useState(session?.user?.name || session?.user?.email || "Conferência São Pedro");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [warningMessage, setWarningMessage] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   const handleDateChange = (val: string) => {
@@ -38,9 +39,10 @@ export function useRegisterDeliveryModal({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent, overrideWarning: boolean = false) => {
+    if (e) e.preventDefault();
     setErrorMessage(null);
+    setWarningMessage(null);
 
     startTransition(async () => {
       const result = await registerDelivery({
@@ -50,10 +52,12 @@ export function useRegisterDeliveryModal({
         basketsQuantity,
         description,
         deliveredBy: deliveredBy || "Voluntário Vicentino",
-      });
+      }, overrideWarning);
 
       if (result.error) {
         setErrorMessage(result.error);
+      } else if (result.warning) {
+        setWarningMessage(result.warning);
       } else {
         setSuccess(true);
         setTimeout(() => {
@@ -79,6 +83,7 @@ export function useRegisterDeliveryModal({
     setDeliveredBy,
     loading: isPending,
     errorMessage,
+    warningMessage,
     success,
     handleSubmit,
   };

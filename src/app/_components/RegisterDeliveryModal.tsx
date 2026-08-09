@@ -36,6 +36,7 @@ export function RegisterDeliveryModal({
     setDeliveredBy,
     loading,
     errorMessage,
+    warningMessage,
     success,
     handleSubmit,
   } = useRegisterDeliveryModal({ beneficiaryId, onClose, onSuccess });
@@ -62,6 +63,22 @@ export function RegisterDeliveryModal({
           {errorMessage && (
             <div className="p-3.5 bg-red-50 border border-red-200 text-red-600 rounded-2xl text-xs font-semibold">
               ⚠️ {errorMessage}
+            </div>
+          )}
+
+          {warningMessage && (
+            <div className="p-3.5 bg-amber-50 border border-amber-200 text-amber-700 rounded-2xl text-xs font-semibold flex flex-col gap-2">
+              <span>⚠️ {warningMessage}</span>
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="sm" 
+                onClick={() => handleSubmit(undefined, true)}
+                disabled={loading}
+                className="self-start border-amber-300 hover:bg-amber-100 text-amber-800"
+              >
+                Registrar nova visita mesmo assim
+              </Button>
             </div>
           )}
 
