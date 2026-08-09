@@ -66,21 +66,7 @@ export function RegisterDeliveryModal({
             </div>
           )}
 
-          {warningMessage && (
-            <div className="p-3.5 bg-amber-50 border border-amber-200 text-amber-700 rounded-2xl text-xs font-semibold flex flex-col gap-2">
-              <span>⚠️ {warningMessage}</span>
-              <Button 
-                type="button" 
-                variant="outline" 
-                size="sm" 
-                onClick={() => handleSubmit(undefined, true)}
-                disabled={loading}
-                className="self-start border-amber-300 hover:bg-amber-100 text-amber-800"
-              >
-                Registrar nova visita mesmo assim
-              </Button>
-            </div>
-          )}
+
 
           {/* Nome do Beneficiado (Somente Leitura) */}
           <div className="space-y-1.5">
@@ -186,6 +172,22 @@ export function RegisterDeliveryModal({
               placeholder="Ex: 2L de leite, pacote de fraldas, conversa sobre saúde..."
             />
           </div>
+
+          {warningMessage && (
+            <div className="p-3.5 bg-amber-50 border border-amber-200 text-amber-700 rounded-2xl text-xs font-semibold flex flex-col gap-2">
+              <span>⚠️ {warningMessage}</span>
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="sm" 
+                onClick={() => handleSubmit(undefined, true)}
+                disabled={loading}
+                className="self-start border-amber-300 hover:bg-amber-100 text-amber-800"
+              >
+                Registrar nova visita mesmo assim
+              </Button>
+            </div>
+          )}
 
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
             <Button
